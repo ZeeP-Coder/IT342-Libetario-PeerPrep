@@ -1,0 +1,65 @@
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dfe5f4;
+  padding: 24px;
+}
+
+.landing-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.landing-brand {
+  margin: 0;
+  color: #2f57ff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.landing-subtitle {
+  margin: 10px 0 18px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.landing-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.landing-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.landing-button.primary {
+  background: #2f57ff;
+  color: #ffffff;
+}
+
+.landing-button.primary:hover {
+  background: #2448d8;
+}
+
+.landing-button.secondary {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.landing-button.secondary:hover {
+  background: #e5e7eb;
+}
