@@ -13,7 +13,7 @@ $env:SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET="your-clien
 $env:SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_SCOPE="openid,profile,email"
 ```
 
-3. Start backend on port `8080`, then start frontend on `5173`.
+3. Start backend on port `8081`, then start frontend on `5173`.
 4. Click Google sign-in in the app.
 
 If Google credentials are not set, the app redirects back to login with a clear "not configured" message.
