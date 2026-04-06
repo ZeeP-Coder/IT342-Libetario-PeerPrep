@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthCard from '../components/AuthCard'
 import { register } from '../services/authService'
+import { getCurrentUser, setCurrentUser } from '../services/sessionService'
 import './RegisterPage.css'
 
 function RegisterPage() {
@@ -16,6 +17,12 @@ function RegisterPage() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    if (getCurrentUser()) {
+      navigate('/groups', { replace: true })
+    }
+  }, [navigate])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -37,7 +44,11 @@ function RegisterPage() {
         password,
       })
       if (response.success) {
-        navigate('/login?registered=1', { replace: true })
+        setCurrentUser({
+          fullName: response.fullName ?? fullName,
+          email: response.email ?? email,
+        })
+        navigate('/groups', { replace: true })
         return
       }
 
@@ -95,12 +106,7 @@ function RegisterPage() {
         />
 
         <label htmlFor="register-major">Major</label>
-        <select
-          id="register-major"
-          value={major}
-          onChange={(event) => setMajor(event.target.value)}
-          required
-        >
+        <select id="register-major" value={major} onChange={(event) => setMajor(event.target.value)} required>
           <option value="" disabled>
             Select your major
           </option>

@@ -14,6 +14,8 @@ export type RegisterPayload = {
 export type AuthResponse = {
   success: boolean
   message: string
+  fullName?: string
+  email?: string
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8081'
@@ -38,6 +40,8 @@ async function postAuth<TPayload>(path: string, payload: TPayload): Promise<Auth
     return {
       success: Boolean(data.success),
       message: typeof data.message === 'string' ? data.message : 'Authentication request successful',
+      fullName: typeof data.fullName === 'string' ? data.fullName : undefined,
+      email: typeof data.email === 'string' ? data.email : undefined,
     }
   } catch (requestError) {
     if (requestError instanceof Error) {

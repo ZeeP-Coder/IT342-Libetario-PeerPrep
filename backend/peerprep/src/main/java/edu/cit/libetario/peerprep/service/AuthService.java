@@ -1,14 +1,16 @@
 package edu.cit.libetario.peerprep.service;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import edu.cit.libetario.peerprep.dto.AuthResponse;
 import edu.cit.libetario.peerprep.dto.LoginRequest;
 import edu.cit.libetario.peerprep.dto.RegisterRequest;
 import edu.cit.libetario.peerprep.entity.User;
 import edu.cit.libetario.peerprep.repository.UserRepository;
-import java.time.LocalDateTime;
-import java.util.Locale;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
@@ -37,7 +39,7 @@ public class AuthService {
         user.setCreatedAt(LocalDateTime.now());
 
         userRepository.save(user);
-        return new AuthResponse(true, "Registration successful");
+        return new AuthResponse(true, "Registration successful", user.getFullName(), user.getEmail());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -51,6 +53,6 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid email or password");
         }
 
-        return new AuthResponse(true, "Login successful");
+        return new AuthResponse(true, "Login successful", user.getFullName(), user.getEmail());
     }
 }

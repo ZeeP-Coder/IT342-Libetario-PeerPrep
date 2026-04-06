@@ -1,0 +1,75 @@
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 16px;
+}
+
+.detail-card {
+  padding: 22px;
+}
+
+.group-detail-main {
+  display: grid;
+  gap: 20px;
+}
+
+.detail-heading-row h2 {
+  margin-top: 12px;
+  font-size: 28px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.detail-grid div {
+  padding: 14px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.detail-grid span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.detail-grid strong {
+  display: block;
+  margin-top: 6px;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.detail-action-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.loading-card,
+.error-card {
+  padding: 24px;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .detail-layout,
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

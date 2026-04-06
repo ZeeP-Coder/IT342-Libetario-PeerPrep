@@ -76,29 +76,10 @@
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-}button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
 }
 
-.landing-button.primary {
-  background: linear-gradient(135deg, #2f57ff, #6f8bff);
-  color: #ffffff;
-  box-shadow: 0 10px 24px rgba(47, 87, 255, 0.22);
-}
-
-.landing-button.secondary,
-.landing-button.ghost {
-  background: rgba(255, 255, 255, 0.82);
-  color: #334155;
-  border: 1px solid rgba(148, 163, 184, 0.16)
+.landing-copy h1 {
+  margin: 0;
   color: #0f172a;
   font-size: clamp(34px, 5vw, 58px);
   line-height: 1.02;
@@ -134,12 +115,9 @@
   letter-spacing: 0.08em;
 }
 
-@media (max-width: 900px) {
-  .landing-nav,
-  .landing-hero,
-  .landing-nav-actions,
-  .landing-actions {
-  }: 8px;
+.landing-preview strong {
+  display: block;
+  margin-top: 8px;
   color: #0f172a;
   font-size: 20px;
 }
@@ -150,42 +128,45 @@
   font-size: 14px;
 }
 
-.landing-subtitle {
-  margin: 10px 0 18px;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.landing-actions {
-  display: grid;
-  gap: 10px;
-}
-
 .landing-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  border-radius: 6px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .landing-button.primary {
-  background: #2f57ff;
+  background: linear-gradient(135deg, #2f57ff, #6f8bff);
   color: #ffffff;
+  box-shadow: 0 10px 24px rgba(47, 87, 255, 0.22);
 }
 
-.landing-button.primary:hover {
-  background: #2448d8;
+.landing-button.secondary,
+.landing-button.ghost {
+  background: rgba(255, 255, 255, 0.82);
+  color: #334155;
+  border: 1px solid rgba(148, 163, 184, 0.16);
 }
 
-.landing-button.secondary {
-  background: #f3f4f6;
-  color: #111827;
-}
+@media (max-width: 900px) {
+  .landing-nav,
+  .landing-hero,
+  .landing-nav-actions,
+  .landing-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.landing-button.secondary:hover {
-  background: #e5e7eb;
+  .landing-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-copy {
+    padding: 28px;
+  }
 }

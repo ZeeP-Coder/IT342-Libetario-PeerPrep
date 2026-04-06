@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import AuthCard from '../components/AuthCard'
 import { getGoogleAuthUrl, login } from '../services/authService'
+import { getCurrentUser, setCurrentUser } from '../services/sessionService'
 import './LoginPage.css'
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -15,14 +16,29 @@ function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
+    if (getCurrentUser()) {
+      navigate('/groups', { replace: true })
+      return
+    }
+
     const registered = searchParams.get('registered')
     const google = searchParams.get('google')
+    const googleEmail = searchParams.get('email')
+    const googleFullName = searchParams.get('fullName')
 
     if (registered === '1') {
       setMessage('Account created successfully. Please sign in.')
     }
 
     if (google === 'success') {
+      if (googleEmail) {
+        setCurrentUser({
+          email: googleEmail,
+          fullName: googleFullName && googleFullName.trim().length > 0 ? googleFullName : googleEmail,
+        })
+        navigate('/groups', { replace: true })
+        return
+      }
       setMessage('Google authentication successful.')
     }
 
@@ -33,7 +49,7 @@ function LoginPage() {
     if (google === 'not-configured') {
       setError('Google auth is not configured yet. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in backend.')
     }
-  }, [searchParams])
+  }, [navigate, searchParams])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -43,7 +59,11 @@ function LoginPage() {
 
     try {
       const response = await login({ email, password })
-      setMessage(response.message)
+      setCurrentUser({
+        fullName: response.fullName ?? email,
+        email: response.email ?? email,
+      })
+      navigate('/groups', { replace: true })
     } catch (submitError) {
       if (submitError instanceof Error) {
         setError(submitError.message)
