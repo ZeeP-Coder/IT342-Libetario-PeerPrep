@@ -216,27 +216,28 @@ public class StudyGroupService {
         boolean joinable = currentMembers < studyGroup.getMaxMembers();
         String status = joinable ? "Open" : "Full";
 
-        return new StudyGroupResponse(
-                studyGroup.getId(),
-                studyGroup.getSubject(),
-                studyGroup.getDescription(),
-                studyGroup.getDay(),
-                studyGroup.getMeetingTime(),
-                studyGroup.getLocation(),
-                studyGroup.getMaxMembers(),
-                currentMembers,
-                status,
-                joined,
-                studyGroup.getCreator().getId().equals(currentUser.getId()),
-                joinable && !joined,
-                studyGroup.getCreator().getFullName(),
-                studyGroup.getCreator().getEmail(),
-                studyGroup.getCreatedAt(),
-                members.stream()
-                    .map(member -> member.getUser().getFullName())
-                    .distinct()
-                    .sorted()
-                    .toList());
+        return StudyGroupResponse.builder()
+            .id(studyGroup.getId())
+            .subject(studyGroup.getSubject())
+            .description(studyGroup.getDescription())
+            .day(studyGroup.getDay())
+            .meetingTime(studyGroup.getMeetingTime())
+            .location(studyGroup.getLocation())
+            .maxMembers(studyGroup.getMaxMembers())
+            .currentMembers(currentMembers)
+            .status(status)
+            .joined(joined)
+            .ownedByCurrentUser(studyGroup.getCreator().getId().equals(currentUser.getId()))
+            .joinable(joinable && !joined)
+            .createdByName(studyGroup.getCreator().getFullName())
+            .createdByEmail(studyGroup.getCreator().getEmail())
+            .createdAt(studyGroup.getCreatedAt())
+            .memberNames(members.stream()
+                .map(member -> member.getUser().getFullName())
+                .distinct()
+                .sorted()
+                .toList())
+            .build();
     }
 
     private List<StudyPartnerResponse> buildPartners(
