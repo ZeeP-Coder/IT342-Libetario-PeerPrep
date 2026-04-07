@@ -1,17 +1,10 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppShell from '../components/AppShell'
 import { clearCurrentUser, getCurrentUser } from '../services/sessionService'
-import {
-  createStudyGroup,
-  deleteStudyGroup,
-  fetchStudyGroup,
-  fetchStudyGroupDashboard,
-  joinStudyGroup,
-  leaveStudyGroup,
-  type StudyGroup,
-  type StudyPartner,
-} from '../services/studyGroupService'
+import { studyGroupFacade } from '../services/studyGroupFacade'
+import { type StudyGroup, type StudyPartner } from '../services/studyGroupService'
+import { applyGroupFilters } from '../strategies/studyGroupFilterStrategies'
 import './StudyGroupsPage.css'
 
 type StudyGroupTab = 'available' | 'my' | 'partners'
@@ -64,16 +57,7 @@ function StudyGroupsPage() {
   const [form, setForm] = useState<CreateGroupFormState>(defaultCreateForm)
   const [formError, setFormError] = useState('')
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate('/login', { replace: true })
-      return
-    }
-
-    void refreshDashboard(true)
-  }, [currentUser, navigate])
-
-  const refreshDashboard = async (showLoading = false) => {
+  const refreshDashboard = useCallback(async (showLoading = false) => {
     if (!currentUser) {
       return
     }
@@ -85,7 +69,7 @@ function StudyGroupsPage() {
     setError('')
 
     try {
-      const dashboard = await fetchStudyGroupDashboard(currentUser.email)
+      const dashboard = await studyGroupFacade.loadDashboard(currentUser.email)
       setDashboardUserName(dashboard.currentUserName || currentUser.fullName)
       setAvailableGroups(dashboard.availableStudyGroups)
       setMyGroups(dashboard.myStudyGroups)
@@ -108,31 +92,38 @@ function StudyGroupsPage() {
         setIsLoading(false)
       }
     }
-  }
+  }, [currentUser])
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/login', { replace: true })
+      return
+    }
+
+    void refreshDashboard(true)
+  }, [currentUser, navigate, refreshDashboard])
+
+  useEffect(() => {
+    if (!currentUser) {
+      return
+    }
+
+    const unsubscribe = studyGroupFacade.subscribeToChanges(() => {
+      void refreshDashboard()
+    })
+
+    return unsubscribe
+  }, [currentUser, refreshDashboard])
 
   const allGroups = [...availableGroups, ...myGroups]
   const subjectOptions = ['all', ...new Map(allGroups.map((group) => [group.subject.toLowerCase(), group.subject])).values()]
 
-  const filterGroup = (group: StudyGroup) => {
-    const query = searchTerm.trim().toLowerCase()
-    const matchesQuery =
-      query.length === 0 ||
-      [group.subject, group.description, group.day, group.meetingTime, group.location, group.createdByName]
-        .join(' ')
-        .toLowerCase()
-        .includes(query)
-
-    const matchesSubject = subjectFilter === 'all' || group.subject.toLowerCase() === subjectFilter
-    const matchesDay = dayFilter === 'all' || group.day.toLowerCase() === dayFilter
-    const normalizedTimeFilter = timeFilter.trim().toLowerCase()
-    const matchesTime =
-      normalizedTimeFilter.length === 0 ||
-      group.meetingTime.toLowerCase().includes(normalizedTimeFilter)
-
-    return matchesQuery && matchesSubject && matchesDay && matchesTime
-  }
-
-  const visibleGroups = (activeTab === 'available' ? availableGroups : myGroups).filter(filterGroup)
+  const visibleGroups = applyGroupFilters(activeTab === 'available' ? availableGroups : myGroups, {
+    searchTerm,
+    subjectFilter,
+    dayFilter,
+    timeFilter,
+  })
   const visiblePartners = partners.filter((partner: StudyPartner) => {
     const query = searchTerm.trim().toLowerCase()
     if (query.length === 0) {
@@ -178,7 +169,7 @@ function StudyGroupsPage() {
 
     setIsSaving(true)
     try {
-      const response = await createStudyGroup({
+      const response = await studyGroupFacade.createGroup({
         creatorEmail: currentUser.email,
         subject: form.subject.trim(),
         description: form.description.trim(),
@@ -192,7 +183,6 @@ function StudyGroupsPage() {
       setIsCreateModalOpen(false)
       setForm(defaultCreateForm)
 
-      await refreshDashboard()
     } catch (submitError) {
       if (submitError instanceof Error) {
         setFormError(submitError.message)
@@ -215,9 +205,8 @@ function StudyGroupsPage() {
     setMessage('')
 
     try {
-      const response = await joinStudyGroup(groupId, { userEmail: currentUser.email })
+      const response = await studyGroupFacade.joinGroup(groupId, currentUser.email)
       setMessage(response.message)
-      await refreshDashboard()
     } catch (joinError) {
       if (joinError instanceof Error) {
         setError(joinError.message)
@@ -245,9 +234,8 @@ function StudyGroupsPage() {
     setMessage('')
 
     try {
-      const response = await leaveStudyGroup(groupId, { userEmail: currentUser.email })
+      const response = await studyGroupFacade.leaveGroup(groupId, currentUser.email)
       setMessage(response.message)
-      await refreshDashboard()
     } catch (leaveError) {
       if (leaveError instanceof Error) {
         setError(leaveError.message)
@@ -275,7 +263,7 @@ function StudyGroupsPage() {
     setError('')
 
     try {
-      const group = await fetchStudyGroup(groupId, currentUser.email)
+      const group = await studyGroupFacade.loadGroup(groupId, currentUser.email)
       setSelectedGroup(group)
     } catch (detailsError) {
       if (detailsError instanceof Error) {
@@ -312,12 +300,11 @@ function StudyGroupsPage() {
     setMessage('')
 
     try {
-      const response = await deleteStudyGroup(selectedGroup.id, currentUser.email)
+      const response = await studyGroupFacade.deleteGroup(selectedGroup.id, currentUser.email)
       setMessage(response.message)
       setIsDeleteConfirmOpen(false)
       setIsViewModalOpen(false)
       setSelectedGroup(null)
-      await refreshDashboard()
     } catch (deleteError) {
       if (deleteError instanceof Error) {
         setError(deleteError.message)
@@ -339,11 +326,10 @@ function StudyGroupsPage() {
     setMessage('')
 
     try {
-      const response = await leaveStudyGroup(selectedGroup.id, { userEmail: currentUser.email })
+      const response = await studyGroupFacade.leaveGroup(selectedGroup.id, currentUser.email)
       setMessage(response.message)
       setIsViewModalOpen(false)
       setSelectedGroup(null)
-      await refreshDashboard()
     } catch (leaveError) {
       if (leaveError instanceof Error) {
         setError(leaveError.message)

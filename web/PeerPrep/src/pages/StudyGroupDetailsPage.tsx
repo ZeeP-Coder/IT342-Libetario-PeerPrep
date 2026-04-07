@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import AppShell from '../components/AppShell'
 import { clearCurrentUser, getCurrentUser } from '../services/sessionService'
-import { fetchStudyGroup, joinStudyGroup, leaveStudyGroup, type StudyGroup } from '../services/studyGroupService'
+import { studyGroupFacade } from '../services/studyGroupFacade'
+import { type StudyGroup } from '../services/studyGroupService'
 import './StudyGroupDetailsPage.css'
 
 function StudyGroupDetailsPage() {
@@ -33,7 +34,7 @@ function StudyGroupDetailsPage() {
       setError('')
 
       try {
-        const response = await fetchStudyGroup(groupId, currentUser.email)
+        const response = await studyGroupFacade.loadGroup(groupId, currentUser.email)
         setGroup(response)
       } catch (loadError) {
         if (loadError instanceof Error) {
@@ -54,7 +55,7 @@ function StudyGroupDetailsPage() {
       return
     }
 
-    const response = await fetchStudyGroup(groupId, currentUser.email)
+    const response = await studyGroupFacade.loadGroup(groupId, currentUser.email)
     setGroup(response)
   }
 
@@ -68,7 +69,7 @@ function StudyGroupDetailsPage() {
     setMessage('')
 
     try {
-      const response = await joinStudyGroup(group.id, { userEmail: currentUser.email })
+      const response = await studyGroupFacade.joinGroup(group.id, currentUser.email)
       setMessage(response.message)
       await refreshGroup()
     } catch (joinError) {
@@ -92,7 +93,7 @@ function StudyGroupDetailsPage() {
     setMessage('')
 
     try {
-      const response = await leaveStudyGroup(group.id, { userEmail: currentUser.email })
+      const response = await studyGroupFacade.leaveGroup(group.id, currentUser.email)
       setMessage(response.message)
       await refreshGroup()
     } catch (leaveError) {
