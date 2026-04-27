@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 public record StudyGroupCreateRequest(
         @NotBlank @Email String creatorEmail,
         @NotBlank @Size(min = 3, max = 80) String subject,
-        @NotBlank @Size(min = 20, max = 500) String description,
+        @NotBlank @Size(max = 500) String description,
         @NotBlank String day,
         @NotBlank String meetingTime,
         @NotBlank @Size(min = 3, max = 120) String location,

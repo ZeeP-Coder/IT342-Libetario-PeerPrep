@@ -20,6 +20,12 @@
   background: rgba(247, 249, 255, 0.8);
 }
 
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .app-brand {
   display: inline-flex;
   align-items: center;

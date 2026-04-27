@@ -28,6 +28,51 @@
   background: #ffffff;
 }
 
+.major-autocomplete-container {
+  position: relative;
+}
+
+.major-autocomplete-container input {
+  width: 100%;
+}
+
+.major-suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.major-suggestions-dropdown li {
+  padding: 8px 10px;
+  font-size: 13px;
+  color: #111827;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.major-suggestions-dropdown li:hover {
+  background: #f3f4f6;
+}
+
+.major-suggestions-dropdown li:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.major-suggestions-dropdown li:last-child {
+  border-radius: 0 0 5px 5px;
+}
+
 .auth-form button {
   margin-top: 6px;
   height: 38px;

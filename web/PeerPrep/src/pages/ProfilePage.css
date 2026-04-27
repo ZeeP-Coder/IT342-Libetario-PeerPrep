@@ -1,0 +1,117 @@
+.profile-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+.profile-card {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  padding: 20px;
+}
+
+.profile-card h2,
+.profile-card h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.profile-card > p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.profile-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.profile-form label {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-form input {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+}
+
+.profile-form input:focus {
+  border-color: #2f57ff;
+  box-shadow: 0 0 0 3px rgba(47, 87, 255, 0.12);
+  background: #ffffff;
+}
+
+.profile-form input:disabled {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.major-autocomplete-container {
+  position: relative;
+}
+
+.major-autocomplete-container input {
+  width: 100%;
+}
+
+.major-suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.major-suggestions-dropdown li {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #0f172a;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.major-suggestions-dropdown li:hover {
+  background: #f3f4f6;
+}
+
+.major-suggestions-dropdown li:first-child {
+  border-radius: 11px 11px 0 0;
+}
+
+.major-suggestions-dropdown li:last-child {
+  border-radius: 0 0 11px 11px;
+}
+
+.profile-form button {
+  margin-top: 12px;
+}
+
+.profile-side-card strong {
+  color: #0f172a;
+}
+
+@media (max-width: 960px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+}

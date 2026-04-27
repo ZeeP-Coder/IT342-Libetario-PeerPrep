@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthCard from '../components/AuthCard'
@@ -6,17 +6,48 @@ import { register } from '../services/authService'
 import { getCurrentUser, setCurrentUser } from '../services/sessionService'
 import './RegisterPage.css'
 
+const SUGGESTED_MAJORS = [
+  'Computer Science',
+  'Information Technology',
+  'Software Engineering',
+  'Data Science',
+  'Artificial Intelligence',
+  'Cybersecurity',
+  'Engineering',
+  'Electrical Engineering',
+  'Mechanical Engineering',
+  'Civil Engineering',
+  'Business',
+  'Finance',
+  'Economics',
+  'Psychology',
+  'Biology',
+  'Chemistry',
+  'Physics',
+  'Mathematics',
+  'Education',
+  'Nursing',
+  'Liberal Arts',
+]
+
 function RegisterPage() {
   const navigate = useNavigate()
+  const majorInputRef = useRef<HTMLInputElement>(null)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [university, setUniversity] = useState('')
   const [major, setMajor] = useState('')
+  const [majorFocus, setMajorFocus] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const majorSuggestions =
+    major.trim().length === 0
+      ? []
+      : SUGGESTED_MAJORS.filter((m) => m.toLowerCase().includes(major.trim().toLowerCase()))
 
   useEffect(() => {
     if (getCurrentUser()) {
@@ -106,16 +137,35 @@ function RegisterPage() {
         />
 
         <label htmlFor="register-major">Major</label>
-        <select id="register-major" value={major} onChange={(event) => setMajor(event.target.value)} required>
-          <option value="" disabled>
-            Select your major
-          </option>
-          <option value="computer-science">Computer Science</option>
-          <option value="information-technology">Information Technology</option>
-          <option value="engineering">Engineering</option>
-          <option value="business">Business</option>
-          <option value="education">Education</option>
-        </select>
+        <div className="major-autocomplete-container">
+          <input
+            ref={majorInputRef}
+            id="register-major"
+            type="text"
+            placeholder="e.g. Computer Science, Business..."
+            value={major}
+            onChange={(event) => setMajor(event.target.value)}
+            onFocus={() => setMajorFocus(true)}
+            onBlur={() => setTimeout(() => setMajorFocus(false), 150)}
+            required
+          />
+          {majorFocus && majorSuggestions.length > 0 ? (
+            <ul className="major-suggestions-dropdown">
+              {majorSuggestions.map((suggestion) => (
+                <li
+                  key={suggestion}
+                  onClick={() => {
+                    setMajor(suggestion)
+                    setMajorFocus(false)
+                    majorInputRef.current?.blur()
+                  }}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
 
         <label htmlFor="register-password">Password</label>
         <input

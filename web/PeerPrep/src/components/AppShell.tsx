@@ -6,18 +6,22 @@ type AppShellProps = {
   title: string
   subtitle: string
   userName: string
+  leftActions?: ReactNode
   actions?: ReactNode
   children: ReactNode
 }
 
-function AppShell({ title, subtitle, userName, actions, children }: AppShellProps) {
+function AppShell({ title, subtitle, userName, leftActions, actions, children }: AppShellProps) {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <Link className="app-brand" to="/groups">
-          <span className="app-brand-mark">P</span>
-          <span>PeerPrep</span>
-        </Link>
+        <div className="app-header-left">
+          <Link className="app-brand" to="/groups">
+            <span className="app-brand-mark">P</span>
+            <span>PeerPrep</span>
+          </Link>
+          {leftActions}
+        </div>
 
         <div className="app-header-actions">
           <span className="app-user-chip">{userName}</span>

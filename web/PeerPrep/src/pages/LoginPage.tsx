@@ -25,6 +25,7 @@ function LoginPage() {
     const google = searchParams.get('google')
     const googleEmail = searchParams.get('email')
     const googleFullName = searchParams.get('fullName')
+    const googleProfile = searchParams.get('profile')
 
     if (registered === '1') {
       setMessage('Account created successfully. Please sign in.')
@@ -36,7 +37,7 @@ function LoginPage() {
           email: googleEmail,
           fullName: googleFullName && googleFullName.trim().length > 0 ? googleFullName : googleEmail,
         })
-        navigate('/groups', { replace: true })
+        navigate(googleProfile === 'required' ? '/groups?profile=required' : '/groups', { replace: true })
         return
       }
       setMessage('Google authentication successful.')
