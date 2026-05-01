@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -18,27 +21,47 @@
         <!-- Landing Activity - Launcher -->
         <activity
             android:name=".ui.LandingActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Login Activity -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="false" />
 
-        <!-- Register Activity -->
         <activity
             android:name=".ui.RegisterActivity"
             android:exported="false" />
 
-        <!-- Home Activity -->
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.ProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.CreateGroupActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.GroupDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PeerPrep.Dialog" />
+
+        <receiver
+            android:name=".util.StudyGroupAlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

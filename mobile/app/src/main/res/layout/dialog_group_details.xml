@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_auth_card"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Data Structures"
+            android:textColor="@color/pp_text_main"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <!-- top-right close removed for modal view when opened from My Groups -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dialog_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Coding, Practicing and More Advance studying for Java as well"
+        android:textColor="@color/pp_text_muted"
+        android:textSize="12sp"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_field"
+            android:padding="8dp"
+            android:layout_marginRight="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DAY"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="@color/pp_text_muted" />
+            <TextView
+                android:id="@+id/tv_dialog_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday"
+                android:textSize="12sp"
+                android:textColor="@color/pp_text_main" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_field"
+            android:padding="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIME"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="@color/pp_text_muted" />
+            <TextView
+                android:id="@+id/tv_dialog_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:30 AM - 10:30 AM"
+                android:textSize="12sp"
+                android:textColor="@color/pp_text_main" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_field"
+            android:padding="8dp"
+            android:layout_marginRight="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOCATION"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="@color/pp_text_muted" />
+            <TextView
+                android:id="@+id/tv_dialog_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Study Area"
+                android:textSize="12sp"
+                android:textColor="@color/pp_text_main" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_field"
+            android:padding="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MEMBERS"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="@color/pp_text_muted" />
+            <TextView
+                android:id="@+id/tv_dialog_members_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2/5"
+                android:textSize="12sp"
+                android:textColor="@color/pp_text_main" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MEMBERS"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:textColor="@color/pp_text_muted"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_members_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="24dp">
+        <!-- Sample members -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:text="123123"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_input_field"
+            android:textSize="12sp"
+            android:layout_marginBottom="4dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:text="Zeep Persona"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_input_field"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btn_dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_btn_outline"
+            android:text="Close"
+            android:textAllCaps="false"
+            android:textColor="@color/pp_primary"
+            android:textSize="12sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <Button
+            android:id="@+id/btn_dialog_action"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_btn_primary"
+            android:text="Join Group"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginLeft="12dp" />
+    </LinearLayout>
+</LinearLayout>

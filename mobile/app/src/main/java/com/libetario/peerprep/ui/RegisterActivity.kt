@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.libetario.peerprep.R
 import com.libetario.peerprep.api.RetrofitClient
+import com.libetario.peerprep.auth.SessionManager
 import com.libetario.peerprep.model.RegisterRequest
 import kotlinx.coroutines.launch
 
@@ -20,9 +21,13 @@ class RegisterActivity : AppCompatActivity() {
         private const val TAG = "RegisterActivity"
     }
 
+    private lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        sessionManager = SessionManager(this)
 
         val nameInput = findViewById<EditText>(R.id.et_name)
         val emailInput = findViewById<EditText>(R.id.et_email)
@@ -110,9 +115,17 @@ class RegisterActivity : AppCompatActivity() {
                 Log.d(TAG, "Response code: ${response.code()}")
 
                 if (response.isSuccessful) {
+                    val authResponse = response.body()
                     Log.d(TAG, "Registration successful")
+                    if (authResponse != null && authResponse.email != null && authResponse.fullName != null) {
+                        sessionManager.saveUserSession(
+                            authResponse.email,
+                            authResponse.fullName,
+                            authResponse.accessToken ?: ""
+                        )
+                    }
                     Toast.makeText(this@RegisterActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                    startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
                     finish()
                 } else {
                     val errorMsg = response.errorBody()?.string() ?: "Registration failed (code: ${response.code()})"

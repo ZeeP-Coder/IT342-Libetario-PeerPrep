@@ -92,6 +92,14 @@
                     android:textSize="14sp"
                     android:layout_marginBottom="28dp" />
 
+                <ProgressBar
+                    android:id="@+id/login_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginBottom="14dp" />
+
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
@@ -180,4 +188,3 @@
     </ScrollView>
 
 </FrameLayout>
-

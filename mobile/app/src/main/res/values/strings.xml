@@ -32,6 +32,17 @@
     <string name="already_have_account">Already have an account?</string>
     <string name="sign_in">Sign in</string>
 
+    <!-- Home Screen -->
+    <string name="welcome_back_format">Welcome back, %1$s!</string>
+    <string name="available_groups_title">Available Study Groups (%1$d)</string>
+    <string name="my_groups_title">My Groups (%1$d)</string>
+    <string name="study_partners_title">Study Partners (%1$d)</string>
+    <string name="group_details_format">%1$s • %2$s</string>
+    <string name="group_members_format">%1$d/%2$d members</string>
+    <string name="partner_info_format">%1$s • %2$s</string>
+    <string name="shared_groups_format">%1$d shared groups</string>
+    <string name="members_fraction_format">%1$d/%2$d</string>
+
     <!-- Array of majors -->
     <string-array name="majors">
         <item>Select your major</item>
