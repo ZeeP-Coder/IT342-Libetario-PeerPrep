@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
-import LoginPage from './pages/LoginPage'
-import ProfilePage from './pages/ProfilePage'
-import RegisterPage from './pages/RegisterPage'
-import StudyGroupDetailsPage from './pages/StudyGroupDetailsPage'
-import StudyGroupsPage from './pages/StudyGroupsPage'
+import LoginPage from './features/auth/pages/LoginPage'
+import RegisterPage from './features/auth/pages/RegisterPage'
+import ProfilePage from './features/profile/pages/ProfilePage'
+import StudyGroupDetailsPage from './features/study-groups/pages/StudyGroupDetailsPage'
+import StudyGroupsPage from './features/study-groups/pages/StudyGroupsPage'
 
 function App() {
   return (

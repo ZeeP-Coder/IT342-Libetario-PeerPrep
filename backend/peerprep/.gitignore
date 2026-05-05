@@ -37,3 +37,4 @@ application-dev.properties
 application-local.properties
 .env
 .env.local
+.env.properties
