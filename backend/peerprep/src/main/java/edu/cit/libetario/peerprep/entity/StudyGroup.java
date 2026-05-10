@@ -26,8 +26,8 @@ public class StudyGroup {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
-    private String day;
+    @Column(name = "day", nullable = false)
+        private String day = "MONDAY";
 
     @Column(nullable = false)
     private String meetingTime;

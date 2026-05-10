@@ -30,32 +30,32 @@
         </activity>
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".features.auth.ui.LoginActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.RegisterActivity"
+            android:name=".features.auth.ui.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".features.studygroups.ui.HomeActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name=".features.profile.ui.ProfileActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.CreateGroupActivity"
+            android:name=".features.studygroups.ui.CreateGroupActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.GroupDetailsActivity"
+            android:name=".features.studygroups.ui.GroupDetailsActivity"
             android:exported="false"
             android:theme="@style/Theme.PeerPrep.Dialog" />
 
         <receiver
-            android:name=".util.StudyGroupAlarmReceiver"
+            android:name=".features.studygroups.notification.StudyGroupAlarmReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

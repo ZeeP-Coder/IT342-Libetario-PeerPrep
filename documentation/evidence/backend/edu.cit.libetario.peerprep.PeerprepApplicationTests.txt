@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.cit.libetario.peerprep.PeerprepApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.373 s -- in edu.cit.libetario.peerprep.PeerprepApplicationTests

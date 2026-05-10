@@ -6,7 +6,10 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.libetario.peerprep.R
-import com.libetario.peerprep.util.SessionManager
+import com.libetario.peerprep.features.auth.ui.LoginActivity
+import com.libetario.peerprep.features.auth.ui.RegisterActivity
+import com.libetario.peerprep.features.studygroups.ui.HomeActivity
+import com.libetario.peerprep.shared.session.SessionManager
 
 class LandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

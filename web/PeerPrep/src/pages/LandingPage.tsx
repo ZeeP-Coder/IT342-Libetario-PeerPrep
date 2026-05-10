@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getCurrentUser } from '../services/sessionService'
+import { getCurrentUser } from '../shared/session/sessionService'
 import './LandingPageV2.css'
 
 function LandingPage() {
